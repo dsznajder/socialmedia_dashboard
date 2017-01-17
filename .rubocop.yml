@@ -1,0 +1,35 @@
+Rails:
+  Enabled: true
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+   - 'bin/*'
+   - 'lib/**/*'
+   - 'db/seeds.rb'
+   - 'db/migrate/*'
+   - 'db/schema.rb'
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+Style/CaseIndentation:
+  Enabled: false
+Style/StructInheritance:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+ClassLength:
+  Max: 250
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes.rb'
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+Rails/HttpPositionalArguments:
+  Enabled: false
