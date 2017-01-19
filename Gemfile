@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'decent_exposure', '~> 3.0.0'
+gem 'devise', '~> 4.2.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails', '~> 4.2'
 gem 'pg', '~> 0.18'

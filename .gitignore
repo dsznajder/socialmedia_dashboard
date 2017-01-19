@@ -9,6 +9,7 @@
 /vendor/bundle
 client/node_modules
 node_modules
+db/schema.rb
 
 # if using bower-rails ignore default bower_components path bower.json files
 /vendor/assets/bower_components
