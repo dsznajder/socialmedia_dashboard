@@ -1,6 +1,4 @@
 class DashboardController < ApplicationController
-  def index
-    @posts = Post.all
-    @comments = Comment.all
-  end
+  expose :posts, ->{ Post.all }
+  expose :comments, ->{ Comment.all }
 end
