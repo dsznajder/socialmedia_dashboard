@@ -1,4 +1,4 @@
 class DashboardController < ApplicationController
-  expose :posts, ->{ Post.all }
-  expose :comments, ->{ Comment.all }
+  expose :posts, -> { Post.all }
+  expose :comments, -> { Comment.all }
 end

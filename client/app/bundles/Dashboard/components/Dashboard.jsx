@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import PostsList from './PostsList'
 
 export default class Dashboard extends React.Component {
-  render(){
-    return(
+  static propTypes = {
+    posts: PropTypes.array
+  }
+
+  render() {
+    return (
       <div>
-        Socialmedia soon there d(^.^)b
+        <PostsList
+          posts={this.props.posts}/>
       </div>
     )
   }
