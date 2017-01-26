@@ -8,7 +8,7 @@ end
 gem 'decent_exposure', '~> 3.0.0'
 gem 'devise', '~> 4.2.0'
 gem 'jbuilder', '~> 2.5'
-gem 'jquery-rails', '~> 4.2'
+gem 'jquery-rails', '~> 4.2.2'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.0.1'
