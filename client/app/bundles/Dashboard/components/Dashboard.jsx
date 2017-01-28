@@ -4,6 +4,7 @@ import AddPost from './AddPost'
 
 export default class Dashboard extends React.Component {
   static propTypes = {
+    comments: PropTypes.array,
     posts: PropTypes.array
   }
 
@@ -12,7 +13,9 @@ export default class Dashboard extends React.Component {
       <div>
         <AddPost />
         <PostsList
-          posts={this.props.posts}/>
+          comments={this.props.comments}
+          posts={this.props.posts}
+        />
       </div>
     )
   }
