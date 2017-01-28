@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  before_action :authenticate_user!
+
   expose :posts, -> { Post.all.order(:id) }
-  expose :comments, -> { Comment.all }
+  expose :comments, -> { Comment.all.order(:id) }
 end
