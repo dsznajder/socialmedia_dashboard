@@ -16,10 +16,6 @@ export default class AddComment extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    this.refs.commentTextInput.focus();
-  }
-
   inputValueChange = event => {
     this.setState({commentText: event.target.value})
     if (event.target.value.length > 0) {
@@ -44,7 +40,13 @@ export default class AddComment extends React.Component {
     return (
       <div>
         <form onSubmit={this.createComment}>
-          <input name='commentText' onChange={this.inputValueChange} placeholder='Comment it!' ref='commentTextInput' value={this.state.commentText}/>
+          <input
+            name='commentText'
+            onChange={this.inputValueChange}
+            placeholder='Comment it!'
+            ref='commentTextInput'
+            value={this.state.commentText}
+          />
           <input disabled={this.state.disableButton} name='createComment' type='submit' value='Add comment'/>
         </form>
       </div>

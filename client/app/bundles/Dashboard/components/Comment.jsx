@@ -2,38 +2,30 @@ import React, {PropTypes} from 'react'
 import ReactOnRails from 'react-on-rails'
 import $ from 'jquery'
 
-export default class Post extends React.Component {
+export default class Comment extends React.Component {
   static propTypes = {
-    comment: PropTypes.object
+    comment: PropTypes.object,
+    likes: PropTypes.array
   }
 
-  constructor() {
-    super()
-    this.state = {
-      likes: this.props
-    }
+  countLikes = () => {
+    return this.props.likes.filter(like => like.comment_id == this.props.comment.id).length
   }
 
   onClick = event => {
     let csrfToken = ReactOnRails.authenticityToken()
 
-    $.post('/comments', {
-      id: this.props.comment.id,
-      likes: this.props.comment.likes,
+    $.post('/likes', {
+      comment_id: this.props.comment.id,
       authenticity_token: csrfToken
     });
-
-    this.setState({
-      likes: this.state.likes + 1
-    })
   }
 
   render() {
     return (
       <div>
-        <span>{this.props.comment.text}</span>
-        <p>{this.props.comment.likes}</p>
-        <button onClick={this.onClick}>Add point to this comment! :) </button>
+        <span>{this.props.comment.text} {this.countLikes()}</span>
+        <button onClick={this.onClick}>+1</button>
       </div>
     )
   }

@@ -7,58 +7,43 @@ import Comment from './Comment'
 export default class Post extends React.Component {
   static propTypes = {
     comments: PropTypes.array,
+    likes: PropTypes.array,
     post: PropTypes.object
   }
 
-  constructor() {
-    super()
-    this.state = {
-      likes: this.props
-    }
+  countLikes = () => {
+    return this.props.likes.filter(like => like.post_id == this.props.post.id).length
   }
 
   generateComments = () => {
-    return this.props.comments.filter(comment => comment.post_id == this.props.post.id )
-      .map((comment) => {
-        return this.commentElement(comment)
-      })
+    return this.props.comments.filter(comment => comment.post_id == this.props.post.id).map((comment) => {
+      return this.commentElement(comment)
+    })
   }
 
   commentElement = comment => {
-    return (
-      <Comment
-        comment={comment}
-        key={comment.id}
-      />
-    )
+    return <Comment comment={comment} key={comment.id} likes={this.props.likes}/>
   }
 
   onClick = event => {
     let csrfToken = ReactOnRails.authenticityToken()
 
-    $.post('/posts', {
-      id: this.props.post.id,
-      likes: this.props.post.likes,
+    $.post('/likes', {
+      post_id: this.props.post.id,
       authenticity_token: csrfToken
     });
-
-    this.setState({
-      likes: this.state.likes + 1
-    })
   }
 
   render() {
     return (
       <div>
-        <span>{this.props.post.text}</span>
-        <p>{this.props.post.likes}</p>
+        <span>{this.props.post.text} {this.countLikes()}</span>
+        <button onClick={this.onClick}>+1</button>
         <div>
           {this.generateComments()}
         </div>
-        <AddComment
-          postId={this.props.post.id}
-        />
-        <button onClick={this.onClick}>Add point! :) </button>
+        <AddComment postId={this.props.post.id}/>
+
       </div>
     )
   }

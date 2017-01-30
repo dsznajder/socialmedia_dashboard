@@ -4,6 +4,7 @@ import Post from './Post'
 export default class PostsList extends React.Component {
   static propTypes = {
     comments: PropTypes.array,
+    likes: PropTypes.array,
     posts: PropTypes.array
   }
 
@@ -14,13 +15,7 @@ export default class PostsList extends React.Component {
   }
 
   postElement = post => {
-    return (
-      <Post
-        comments={this.props.comments}
-        key={post.id}
-        post={post}
-      />
-    )
+    return <Post comments={this.props.comments} key={post.id} likes={this.props.likes} post={post}/>
   }
 
   render() {

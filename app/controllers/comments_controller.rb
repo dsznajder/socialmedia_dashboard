@@ -6,9 +6,7 @@ class CommentsController < ApplicationController
 
   def create
     if params[:text].present?
-      Comment.create(post: Post.find(params[:post_id]), user: current_user, text: params[:text], likes: 0)
-    elsif params[:likes].present?
-      comment.update_attributes(likes: params[:likes].to_i + 1)
+      Comment.create(post: Post.find(params[:post_id]), user: current_user, text: params[:text])
     end
     redirect_to root_path
   end

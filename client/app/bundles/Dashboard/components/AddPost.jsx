@@ -41,9 +41,14 @@ export default class AddPost extends React.Component {
   render() {
     return (
       <div>
-        Write something new! :)
         <form onSubmit={this.createPost}>
-          <input name='postText' onChange={this.inputValueChange} ref='postTextInput' value={this.state.postText}/>
+          <textarea
+            name='postText'
+            onChange={this.inputValueChange}
+            placeholder="What's going on?"
+            ref='postTextInput'
+            value={this.state.postText}
+          />
           <input disabled={this.state.disableButton} name='createPost' type='submit' value='Add post'/>
         </form>
       </div>
