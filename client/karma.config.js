@@ -14,7 +14,9 @@ module.exports = function(config) {
     webpack: {
       devtool: 'eval-source-map',
       resolve: {
-        extensions: ['', '.js', '.jsx', '.json'],
+        extensions: [
+          '', '.js', '.jsx', '.json'
+        ],
         alias: {
           react: path.resolve('./node_modules/react'),
           'react-dom': path.resolve('./node_modules/react-dom')
@@ -33,14 +35,14 @@ module.exports = function(config) {
             exclude: /node_modules/,
             loader: 'babel-loader',
             query: {
-              presets: ['react', 'es2015', 'latest', 'stage-0']
+              presets: ['react', 'es2015', 'stage-0']
             }
           }, {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
             query: {
-              presets: ['react', 'es2015', 'latest', 'stage-0']
+              presets: ['react', 'es2015', 'stage-0']
             }
           }, {
             test: /\.json$/,
@@ -82,5 +84,5 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false
-  });
+  })
 };
