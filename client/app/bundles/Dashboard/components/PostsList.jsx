@@ -9,9 +9,11 @@ export default class PostsList extends React.Component {
   }
 
   generatePosts = () => {
-    return this.props.posts.map((post) => {
-      return this.postElement(post)
-    })
+    if(this.props.posts != undefined){
+      return this.props.posts.map((post) => {
+        return this.postElement(post)
+      })
+    }
   }
 
   postElement = post => {

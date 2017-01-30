@@ -1,6 +1,5 @@
 FactoryGirl.define do
-  factory :post do
-    text 'Some post'
+  factory :like do
     user { create(:user) }
   end
 end

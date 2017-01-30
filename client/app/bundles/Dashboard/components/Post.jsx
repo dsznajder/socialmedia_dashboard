@@ -16,9 +16,11 @@ export default class Post extends React.Component {
   }
 
   generateComments = () => {
-    return this.props.comments.filter(comment => comment.post_id == this.props.post.id).map((comment) => {
-      return this.commentElement(comment)
-    })
+    if(this.props.comments != undefined){
+      return this.props.comments.filter(comment => comment.post_id == this.props.post.id).map((comment) => {
+        return this.commentElement(comment)
+      })
+    }
   }
 
   commentElement = comment => {

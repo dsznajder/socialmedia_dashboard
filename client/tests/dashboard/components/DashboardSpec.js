@@ -7,13 +7,15 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     renderSubject = () => {
-      return mount(<DashboardComponent />)
-    }
-    let subjectComponent = renderSubject()
-  })
+      return mount(<DashboardComponent />);
+    };
+    subjectComponent = renderSubject();
+  });
 
   it('renders dashboard', () => {
-    // Expecting to fail because my spec environment is failing :D TODO: Fix it!!!
-    expect(subjectComponent).toEqual('some string')
+    let addPostButton = subjectComponent.find('form').find('input').nodes[0].value;
+    let header = subjectComponent.find('h3').nodes[0].innerHTML;
+    expect(header).toEqual('Posts:');
+    expect(addPostButton).toEqual('Add post');
   })
 })
