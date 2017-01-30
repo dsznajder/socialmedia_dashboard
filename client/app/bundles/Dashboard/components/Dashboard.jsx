@@ -11,7 +11,7 @@ export default class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container-fluid'>
         <AddPost/>
         <PostsList comments={this.props.comments} likes={this.props.likes} posts={this.props.posts}/>
       </div>

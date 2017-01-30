@@ -38,14 +38,13 @@ export default class Post extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container-fluid'>
         <span>{this.props.post.text} {this.countLikes()}</span>
         <button onClick={this.onClick}>+1</button>
         <div>
           {this.generateComments()}
         </div>
         <AddComment postId={this.props.post.id}/>
-
       </div>
     )
   }

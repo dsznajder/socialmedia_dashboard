@@ -38,16 +38,25 @@ export default class AddComment extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.createComment}>
+      <div className='col-md-3'>
+        <form className='form-inline' onSubmit={this.createComment}>
+          <div className='form-group'>
+            <input
+              className='form-control'
+              name='commentText'
+              onChange={this.inputValueChange}
+              placeholder='Comment it!'
+              ref='commentTextInput'
+              value={this.state.commentText}
+            />
+          </div>
           <input
-            name='commentText'
-            onChange={this.inputValueChange}
-            placeholder='Comment it!'
-            ref='commentTextInput'
-            value={this.state.commentText}
+            className='btn btn-info'
+            disabled={this.state.disableButton}
+            name='createComment'
+            type='submit'
+            value='Add comment'
           />
-          <input disabled={this.state.disableButton} name='createComment' type='submit' value='Add comment'/>
         </form>
       </div>
     )

@@ -23,7 +23,7 @@ export default class Comment extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container-fluid'>
         <span>{this.props.comment.text} {this.countLikes()}</span>
         <button onClick={this.onClick}>+1</button>
       </div>
