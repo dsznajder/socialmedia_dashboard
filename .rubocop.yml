@@ -7,10 +7,11 @@ AllCops:
     - '**/Rakefile'
   Exclude:
    - 'bin/*'
-   - 'lib/**/*'
+   - 'client/**/*'
    - 'db/seeds.rb'
    - 'db/migrate/*'
    - 'db/schema.rb'
+   - 'lib/**/*'
 Documentation:
   Enabled: false
 Metrics/LineLength:
