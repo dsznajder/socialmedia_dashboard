@@ -1,15 +1,18 @@
 import React, {PropTypes} from 'react'
 import ReactOnRails from 'react-on-rails'
-import $ from 'jquery'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {addComment} from '../actions/addComment.js'
 
-export default class AddComment extends React.Component {
+export class AddComment extends React.Component {
   static propTypes = {
+    addComment: PropTypes.func,
     comment: PropTypes.object,
     postId: PropTypes.number
   }
 
   constructor() {
-    super();
+    super()
     this.state = {
       commentText: '',
       disableButton: true
@@ -27,13 +30,8 @@ export default class AddComment extends React.Component {
 
   createComment = event => {
     let csrfToken = ReactOnRails.authenticityToken()
-    event.preventDefault();
-    $.post('/comments', {
-      authenticity_token: csrfToken,
-      post_id: this.props.postId,
-      text: this.state.commentText
-    });
-    this.setState({disableButton: false})
+    event.preventDefault()
+    this.props.addComment(this.props.postId, this.state.commentText, csrfToken)
   }
 
   render() {
@@ -62,3 +60,9 @@ export default class AddComment extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addComment
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(AddComment)

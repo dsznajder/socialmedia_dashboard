@@ -1,0 +1,6 @@
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const ADD_LIKE = 'ADD_LIKE'
+export const ADD_POST = 'ADD_POST'
+export const GET_COMMENTS_LIST = 'GET_COMMENTS_LIST'
+export const GET_LIKES = 'GET_LIKES'
+export const GET_POSTS_LIST = 'GET_POSTS_LIST'

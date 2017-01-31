@@ -6,10 +6,10 @@ class LikesController < ApplicationController
 
   def create
     if params[:post_id].present?
-      Like.where(user: current_user, post_id: params[:post_id]).first_or_create
+      like = Like.where(user: current_user, post_id: params[:post_id]).first_or_create
     elsif params[:comment_id].present?
-      Like.where(user: current_user, comment_id: params[:comment_id]).first_or_create
+      like = Like.where(user: current_user, comment_id: params[:comment_id]).first_or_create
     end
-    redirect_to root_path
+    render json: like
   end
 end

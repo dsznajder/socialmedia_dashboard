@@ -5,9 +5,7 @@ class CommentsController < ApplicationController
   expose :comment
 
   def create
-    if params[:text].present?
-      Comment.create(post: Post.find(params[:post_id]), user: current_user, text: params[:text])
-    end
-    redirect_to root_path
+    return unless params[:text].present?
+    render json: Comment.create(post: Post.find(params[:post_id]), user: current_user, text: params[:text])
   end
 end

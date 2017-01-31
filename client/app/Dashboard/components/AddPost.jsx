@@ -1,14 +1,17 @@
 import React, {PropTypes} from 'react'
 import ReactOnRails from 'react-on-rails'
-import $ from 'jquery'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {addPost} from '../actions/addPost.js'
 
-export default class AddPost extends React.Component {
+export class AddPost extends React.Component {
   static propTypes = {
+    addPost: PropTypes.func,
     post: PropTypes.object
   }
 
   constructor() {
-    super();
+    super()
     this.state = {
       postText: '',
       disableButton: true
@@ -16,7 +19,7 @@ export default class AddPost extends React.Component {
   }
 
   componentDidMount = () => {
-    this.refs.postTextInput.focus();
+    this.refs.postTextInput.focus()
   }
 
   inputValueChange = event => {
@@ -30,12 +33,8 @@ export default class AddPost extends React.Component {
 
   createPost = event => {
     let csrfToken = ReactOnRails.authenticityToken()
-    event.preventDefault();
-    $.post('/posts', {
-      text: this.state.postText,
-      authenticity_token: csrfToken
-    });
-    this.setState({disableButton: false})
+    event.preventDefault()
+    this.props.addPost(this.state.postText, csrfToken)
   }
 
   render() {
@@ -62,3 +61,9 @@ export default class AddPost extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addPost
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(AddPost)
