@@ -5,9 +5,7 @@ class PostsController < ApplicationController
   expose :post
 
   def create
-    if params[:text].present?
-      Post.create(user: current_user, text: params[:text])
-    end
-    redirect_to root_path
+    return unless params[:text].present?
+    render json: Post.create(user: current_user, text: params[:text])
   end
 end

@@ -1,11 +1,20 @@
 import React, {PropTypes} from 'react'
 import ReactOnRails from 'react-on-rails'
-import $ from 'jquery'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {addLike} from '../actions/addLike.js'
+import {getLikes} from '../actions/getLikes.js'
 
-export default class Comment extends React.Component {
+export class Comment extends React.Component {
   static propTypes = {
+    addLike: PropTypes.func,
     comment: PropTypes.object,
+    getLikes: PropTypes.func,
     likes: PropTypes.array
+  }
+
+  componentWillMount = () => {
+    this.props.getLikes()
   }
 
   countLikes = () => {
@@ -14,11 +23,8 @@ export default class Comment extends React.Component {
 
   onClick = event => {
     let csrfToken = ReactOnRails.authenticityToken()
-
-    $.post('/likes', {
-      comment_id: this.props.comment.id,
-      authenticity_token: csrfToken
-    });
+    event.preventDefault()
+    this.props.addLike(null, this.props.comment.id, csrfToken)
   }
 
   render() {
@@ -30,3 +36,14 @@ export default class Comment extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  likes: state.likes
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addLike,
+  getLikes
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment)

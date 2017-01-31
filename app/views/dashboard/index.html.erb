@@ -2,4 +2,4 @@
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 <% end %>
 
-<%= react_component("Dashboard", props: { posts: posts, comments: comments, likes: likes }, prerender: false) %>
+<%= react_component("Dashboard", prerender: false) %>
