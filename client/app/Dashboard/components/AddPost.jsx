@@ -35,6 +35,7 @@ export class AddPost extends React.Component {
     let csrfToken = ReactOnRails.authenticityToken()
     event.preventDefault()
     this.props.addPost(this.state.postText, csrfToken)
+    event.target.reset();
   }
 
   render() {
@@ -43,11 +44,11 @@ export class AddPost extends React.Component {
         <form className='form-inline' onSubmit={this.createPost}>
           <textarea
             className='form-control'
+            defaultValue=''
             name='postText'
             onChange={this.inputValueChange}
             placeholder="What's going on?"
             ref='postTextInput'
-            value={this.state.postText}
           />
           <input
             className='btn btn-primary'
