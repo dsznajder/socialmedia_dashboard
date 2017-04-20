@@ -17,13 +17,12 @@ export class Post extends React.Component {
     post: PropTypes.object
   }
 
-  static defaultProps = {
-    comments: []
-  }
-
   constructor() {
     super();
-    this.itemLikes = [];
+
+    this.state = {
+      itemLikes: []
+    };
   }
 
   componentWillMount = () => {
@@ -31,12 +30,14 @@ export class Post extends React.Component {
     this.props.getLikes()
   }
 
-  componentWillUpdate({ likes, post }) {
-    this.itemLikes = likes.filter(like => like.post_id == post.id)
+  componentWillReceiveProps = ({ likes, post }) => {
+    this.setState({
+      itemLikes: likes.filter(like => like.post_id == post.id)
+    })
   }
 
-  countLikes() {
-    return this.itemLikes.length;
+  countLikes = () => {
+    return this.state.itemLikes.length;
   }
 
   generateComments = () => {
@@ -55,10 +56,7 @@ export class Post extends React.Component {
     return (
       <div className='container-fluid'>
         <span>{this.props.post.text} {this.countLikes()}</span>
-        <Like
-            likes={this.itemLikes}
-            postId={this.props.post.id}
-        />
+        <Like likes={this.state.itemLikes} postId={this.props.post.id} />
         <div>
           {this.generateComments()}
         </div>

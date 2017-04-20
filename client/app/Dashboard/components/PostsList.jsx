@@ -14,10 +14,6 @@ export class PostsList extends React.Component {
     posts: PropTypes.array
   }
 
-  static defaultProps = {
-    posts: []
-  }
-
   componentWillMount = () => {
     this.props.getUser()
     this.props.getPostsList()
@@ -26,12 +22,7 @@ export class PostsList extends React.Component {
   generatePosts = () => {
     if(this.props.posts){
       return this.props.posts.map((post) => {
-        return (
-            <Post
-                key={post.id}
-                post={post}
-            />
-        );
+        return <Post key={post.id} post={post} />
       })
     }
   }
