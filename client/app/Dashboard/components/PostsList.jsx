@@ -3,23 +3,35 @@ import Post from './Post'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {getPostsList} from '../actions/getPostsList.js'
+import {getUser} from '../actions/getUser'
 
 export class PostsList extends React.Component {
   static propTypes = {
     comments: PropTypes.array,
     getPostsList: PropTypes.func,
+    getUser: PropTypes.func,
     likes: PropTypes.array,
     posts: PropTypes.array
   }
 
+  static defaultProps = {
+    posts: []
+  }
+
   componentWillMount = () => {
+    this.props.getUser()
     this.props.getPostsList()
   }
 
   generatePosts = () => {
-    if(this.props.posts != undefined){
+    if(this.props.posts){
       return this.props.posts.map((post) => {
-        return <Post key={post.id} post={post}/>
+        return (
+            <Post
+                key={post.id}
+                post={post}
+            />
+        );
       })
     }
   }
@@ -41,7 +53,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getPostsList
+  getPostsList,
+  getUser
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsList)

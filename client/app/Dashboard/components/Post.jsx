@@ -1,10 +1,9 @@
 import React, {PropTypes} from 'react'
-import ReactOnRails from 'react-on-rails'
 import AddComment from './AddComment'
 import Comment from './Comment'
+import Like from './Like'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {addLike} from '../actions/addLike.js'
 import {getCommentsList} from '../actions/getCommentsList.js'
 import {getLikes} from '../actions/getLikes.js'
 
@@ -18,17 +17,30 @@ export class Post extends React.Component {
     post: PropTypes.object
   }
 
+  static defaultProps = {
+    comments: []
+  }
+
+  constructor() {
+    super();
+    this.itemLikes = [];
+  }
+
   componentWillMount = () => {
     this.props.getCommentsList()
     this.props.getLikes()
   }
 
-  countLikes = () => {
-    return this.props.likes.filter(like => like.post_id == this.props.post.id).length
+  componentWillUpdate({ likes, post }) {
+    this.itemLikes = likes.filter(like => like.post_id == post.id)
+  }
+
+  countLikes() {
+    return this.itemLikes.length;
   }
 
   generateComments = () => {
-    if(this.props.comments != undefined){
+    if(this.props.comments){
       return this.props.comments.filter(comment => comment.post_id == this.props.post.id).map((comment) => {
         return this.commentElement(comment)
       })
@@ -39,17 +51,14 @@ export class Post extends React.Component {
     return <Comment comment={comment} key={comment.id}/>
   }
 
-  onClick = event => {
-    let csrfToken = ReactOnRails.authenticityToken()
-    event.preventDefault()
-    this.props.addLike(this.props.post.id, null, csrfToken)
-  }
-
   render() {
     return (
       <div className='container-fluid'>
         <span>{this.props.post.text} {this.countLikes()}</span>
-        <button onClick={this.onClick}>+1</button>
+        <Like
+            likes={this.itemLikes}
+            postId={this.props.post.id}
+        />
         <div>
           {this.generateComments()}
         </div>
@@ -65,7 +74,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addLike,
   getCommentsList,
   getLikes
 }, dispatch)

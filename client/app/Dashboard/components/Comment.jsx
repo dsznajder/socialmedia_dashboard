@@ -1,37 +1,42 @@
 import React, {PropTypes} from 'react'
-import ReactOnRails from 'react-on-rails'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {addLike} from '../actions/addLike.js'
 import {getLikes} from '../actions/getLikes.js'
+import Like from './Like'
 
 export class Comment extends React.Component {
   static propTypes = {
-    addLike: PropTypes.func,
     comment: PropTypes.object,
     getLikes: PropTypes.func,
     likes: PropTypes.array
+  }
+
+  constructor() {
+    super();
+    this.itemLikes = [];
   }
 
   componentWillMount = () => {
     this.props.getLikes()
   }
 
-  countLikes = () => {
-    return this.props.likes.filter(like => like.comment_id == this.props.comment.id).length
+  componentWillUpdate({ likes, comment }) {
+    this.itemLikes = likes.filter(like => like.comment_id == comment.id);
   }
 
-  onClick = event => {
-    let csrfToken = ReactOnRails.authenticityToken()
-    event.preventDefault()
-    this.props.addLike(null, this.props.comment.id, csrfToken)
+  countLikes() {
+    return this.itemLikes.length;
   }
 
   render() {
     return (
       <div className='container-fluid'>
         <span>{this.props.comment.text} {this.countLikes()}</span>
-        <button onClick={this.onClick}>+1</button>
+        <Like
+            commentId={this.props.comment.id}
+            likes={this.itemLikes}
+        />
       </div>
     )
   }
