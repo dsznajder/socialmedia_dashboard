@@ -7,6 +7,7 @@ export default (state = {id: null}, {type, user}) => {
         ...state,
         ...user
       };
+      
     default:
       return state;
   }

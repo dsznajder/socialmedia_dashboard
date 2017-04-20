@@ -1,12 +1,10 @@
 import {ajax} from 'jquery';
 import {REMOVE_LIKE} from './types';
 
-const removeLikeAction = (payload) => {
-  return {
-    type: REMOVE_LIKE,
-    payload
-  }
-}
+const removeLikeAction = (payload) => ({
+  type: REMOVE_LIKE,
+  payload
+});
 
 export const removeLike = (likeId, csrfToken) => {
   return dispatch => {

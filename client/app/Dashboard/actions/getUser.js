@@ -1,12 +1,10 @@
 import {get} from 'jquery';
 import {GET_USER} from './types';
 
-const getUserAction = user => {
-  return {
-    type: GET_USER,
-    user
-  };
-}
+const getUserAction = user => ({
+  type: GET_USER,
+  user
+})
 
 export const getUser = () => {
   return dispatch => {

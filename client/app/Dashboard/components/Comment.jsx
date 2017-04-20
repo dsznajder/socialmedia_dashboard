@@ -14,29 +14,31 @@ export class Comment extends React.Component {
 
   constructor() {
     super();
-    this.itemLikes = [];
+
+    this.state = {
+      itemLikes: []
+    };
   }
 
   componentWillMount = () => {
     this.props.getLikes()
   }
 
-  componentWillUpdate({ likes, comment }) {
-    this.itemLikes = likes.filter(like => like.comment_id == comment.id);
+  componentWillReceiveProps = ({ likes, comment }) => {
+    this.setState({
+      itemLikes: likes.filter(like => like.comment_id == comment.id)
+    });
   }
 
-  countLikes() {
-    return this.itemLikes.length;
+  countLikes = () => {
+    return this.state.itemLikes.length;
   }
 
   render() {
     return (
       <div className='container-fluid'>
         <span>{this.props.comment.text} {this.countLikes()}</span>
-        <Like
-            commentId={this.props.comment.id}
-            likes={this.itemLikes}
-        />
+        <Like commentId={this.props.comment.id} likes={this.state.itemLikes} />
       </div>
     )
   }
