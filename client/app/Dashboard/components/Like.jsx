@@ -19,7 +19,6 @@ export class Like extends Component {
     commentId: null,
     postId: null
   }
-        
 
   constructor() {
     super();
