@@ -32,6 +32,7 @@ export class AddComment extends React.Component {
     let csrfToken = ReactOnRails.authenticityToken()
     event.preventDefault()
     this.props.addComment(this.props.postId, this.state.commentText, csrfToken)
+    event.target.reset();
   }
 
   render() {
@@ -41,11 +42,11 @@ export class AddComment extends React.Component {
           <div className='form-group'>
             <input
               className='form-control'
+              defaultValue=''
               name='commentText'
               onChange={this.inputValueChange}
               placeholder='Comment it!'
               ref='commentTextInput'
-              value={this.state.commentText}
             />
           </div>
           <input
