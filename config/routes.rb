@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     resources :posts
     resources :comments
     resources :likes
+
+    get 'user', to: 'user#index', as: 'user'
   end
 end

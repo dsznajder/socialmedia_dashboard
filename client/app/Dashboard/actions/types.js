@@ -1,5 +1,7 @@
+export const GET_USER = 'GET_USER'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const ADD_LIKE = 'ADD_LIKE'
+export const REMOVE_LIKE = 'REMOVE_LIKE'
 export const ADD_POST = 'ADD_POST'
 export const GET_COMMENTS_LIST = 'GET_COMMENTS_LIST'
 export const GET_LIKES = 'GET_LIKES'

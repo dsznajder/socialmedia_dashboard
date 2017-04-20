@@ -12,4 +12,9 @@ class LikesController < ApplicationController
     end
     render json: like
   end
+
+  def destroy
+    like.destroy!
+    render json: like
+  end
 end
