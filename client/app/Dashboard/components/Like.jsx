@@ -15,11 +15,6 @@ export class Like extends Component {
     user: PropTypes.object
   }
 
-  static defaultProps = {
-    commentId: null,
-    postId: null
-  }
-
   constructor() {
     super();
 

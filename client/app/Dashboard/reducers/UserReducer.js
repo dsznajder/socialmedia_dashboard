@@ -1,13 +1,17 @@
 import {GET_USER} from '../actions/types'
 
-export default (state = {id: null}, {type, user}) => {
+const initialState = {
+  id: null
+}
+
+export default (state = initialState, {type, user}) => {
   switch(type) {
     case GET_USER:
       return {
         ...state,
         ...user
       };
-      
+
     default:
       return state;
   }
