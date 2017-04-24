@@ -5,7 +5,18 @@ class PostsController < ApplicationController
   expose :post
 
   def create
-    return unless params[:text].present?
-    render json: Post.create(user: current_user, text: params[:text])
+    post = current_user.posts.new(post_params)
+
+    if post.save
+      render json: post, include: { attachments: { methods: [:attachment_url] } }
+    else
+      render json: post.errors, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def post_params
+    params.permit(:text, attachments_attributes: [:attachment])
   end
 end

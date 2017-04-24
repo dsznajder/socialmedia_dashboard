@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import AttachmentsList from './AttachmentsList';
 import {addLike} from '../actions/addLike.js'
 import {getLikes} from '../actions/getLikes.js'
 import Like from './Like'
@@ -36,9 +37,10 @@ export class Comment extends React.Component {
 
   render() {
     return (
-      <div className='container-fluid'>
+      <div className='container-fluid' style={{ border: '1px dashed grey' }}>
         <span>{this.props.comment.text} {this.countLikes()}</span>
         <Like commentId={this.props.comment.id} likes={this.state.itemLikes} />
+        <AttachmentsList attachments={this.props.comment.attachments} />
       </div>
     )
   }

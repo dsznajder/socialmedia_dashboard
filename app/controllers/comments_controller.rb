@@ -5,7 +5,20 @@ class CommentsController < ApplicationController
   expose :comment
 
   def create
-    return unless params[:text].present?
-    render json: Comment.create(post: Post.find(params[:post_id]), user: current_user, text: params[:text])
+    comment = Comment.new(comment_params)
+    comment.post = Post.find(params[:post_id])
+    comment.user = current_user
+
+    if comment.save
+      render json: comment, include: { attachments: { methods: [:attachment_url] } }
+    else
+      render json: comment.errors, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def comment_params
+    params.permit(:text, attachments_attributes: [:attachment])
   end
 end
