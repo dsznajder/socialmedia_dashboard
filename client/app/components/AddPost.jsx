@@ -2,7 +2,9 @@ import React, {PropTypes} from 'react'
 import ReactOnRails from 'react-on-rails'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import DropzoneUpload from './DropzoneUpload'
 import {addPost} from '../actions/addPost.js'
+
 
 export class AddPost extends React.Component {
   static propTypes = {
@@ -14,7 +16,8 @@ export class AddPost extends React.Component {
     super()
     this.state = {
       postText: '',
-      disableButton: true
+      disableButton: true,
+      files: []
     }
   }
 
@@ -23,18 +26,31 @@ export class AddPost extends React.Component {
   }
 
   inputValueChange = event => {
-    this.setState({postText: event.target.value})
-    if (event.target.value.length > 0) {
-      this.setState({disableButton: false})
-    } else {
-      this.setState({disableButton: true})
-    }
+    this.setState({
+      postText: event.target.value,
+      disableButton: event.target.value.length <= 0
+    });
+  }
+
+  handleFilesChange = (files) => {
+    this.setState({
+      files
+    })
   }
 
   createPost = event => {
-    let csrfToken = ReactOnRails.authenticityToken()
     event.preventDefault()
-    this.props.addPost(this.state.postText, csrfToken)
+
+    const csrfToken = ReactOnRails.authenticityToken()
+    const data = {
+      text: this.state.postText,
+      files: this.state.files
+    }
+
+    this.props.addPost(data, csrfToken)
+    this.setState({
+      files: []
+    })
     event.target.reset();
   }
 
@@ -49,6 +65,10 @@ export class AddPost extends React.Component {
             onChange={this.inputValueChange}
             placeholder="What's going on?"
             ref='postTextInput'
+          />
+          <DropzoneUpload
+            files={this.state.files}
+            filesChanged={this.handleFilesChange}
           />
           <input
             className='btn btn-primary'

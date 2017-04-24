@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react'
 import ReactOnRails from 'react-on-rails'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import DropzoneUpload from './DropzoneUpload'
 import {addComment} from '../actions/addComment.js'
 
 export class AddComment extends React.Component {
@@ -15,24 +16,38 @@ export class AddComment extends React.Component {
     super()
     this.state = {
       commentText: '',
+      files: [],
       disableButton: true
     }
   }
 
   inputValueChange = event => {
-    this.setState({commentText: event.target.value})
-    if (event.target.value.length > 0) {
-      this.setState({disableButton: false})
-    } else {
-      this.setState({disableButton: true})
-    }
+    this.setState({
+      commentText: event.target.value,
+      disableButton: event.target.value.length <= 0
+    });
   }
 
   createComment = event => {
-    let csrfToken = ReactOnRails.authenticityToken()
     event.preventDefault()
-    this.props.addComment(this.props.postId, this.state.commentText, csrfToken)
+    const csrfToken = ReactOnRails.authenticityToken()
+    const data = {
+      post_id: this.props.postId,
+      text: this.state.commentText,
+      files: this.state.files
+    }
+
+    this.props.addComment(data, csrfToken)
+    this.setState({
+      files: []
+    })
     event.target.reset();
+  }
+
+  handleFilesChange = files => {
+    this.setState({
+      files
+    })
   }
 
   render() {
@@ -49,6 +64,10 @@ export class AddComment extends React.Component {
               ref='commentTextInput'
             />
           </div>
+          <DropzoneUpload
+            files={this.state.files}
+            filesChanged={this.handleFilesChange}
+          />
           <input
             className='btn btn-info'
             disabled={this.state.disableButton}
