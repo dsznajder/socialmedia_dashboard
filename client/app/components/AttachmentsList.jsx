@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class AttachmentsList extends Component
-{
+export default class AttachmentsList extends Component {
   static propTypes = {
     attachments: PropTypes.array.isRequired
   }
