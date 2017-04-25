@@ -31,10 +31,6 @@ export class AddPost extends React.Component {
     });
   }
 
-  handleFilesChange = (files) => this.setState({
-    files
-  })
-
   createPost = event => {
     event.preventDefault()
 
