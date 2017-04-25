@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
+import PreviewsList from './PreviewsList'
 
 export default class DropzoneUpload extends Component {
   static propTypes = {
     files: PropTypes.array.isRequired,
     filesChanged: PropTypes.func.isRequired
   }
-
 
   onDrop = (acceptedFiles, rejectedFiles) => {
     const files = [
@@ -27,25 +27,10 @@ export default class DropzoneUpload extends Component {
     window.URL.revokeObjectURL(event.target.src);
   }
 
-  renderPreview = (file) => {
-    return (
-      <img
-        alt={file.name}
-        height='60'
-        key={file.preview}
-        onDoubleClick={this.removeFile}
-        src={file.preview}
-        title='Double click to remove'
-      />
-    )
-  }
-
   render() {
     return (
       <div>
-        <div className='upload-preview'>
-          {this.props.files.map(this.renderPreview)}
-        </div>
+        <PreviewsList files={this.props.files} removeFile={this.removeFile} />
         <Dropzone
           accept={'image/png, image/jpeg, image/gif'}
           activeStyle={{ borderColor: 'green' }}
