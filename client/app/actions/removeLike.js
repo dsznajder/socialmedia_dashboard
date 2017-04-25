@@ -1,5 +1,6 @@
 import {ajax} from 'jquery';
 import {REMOVE_LIKE} from './types';
+import ReactOnRails from 'react-on-rails';
 
 const removeLikeAction = (payload) => ({
   type: REMOVE_LIKE,
@@ -12,7 +13,7 @@ export const removeLike = (likeId, csrfToken) => {
       url: `/likes/${likeId}`,
       method: 'delete',
       data: {
-        authenticity_token: csrfToken
+        authenticity_token: ReactOnRails.authenticityToken()
       }
     }).then(like => dispatch(removeLikeAction(like)));
   }

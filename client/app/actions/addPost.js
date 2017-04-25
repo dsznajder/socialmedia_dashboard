@@ -1,5 +1,6 @@
 import {ADD_POST} from './types.js'
 import $ from 'jquery'
+import ReactOnRails from 'react-on-rails';
 
 const addPostAction = post => ({
   type: ADD_POST,
@@ -8,7 +9,7 @@ const addPostAction = post => ({
 
 export const addPost = ({ text, files }, csrfToken) => {
   const fields = {
-    authenticity_token: csrfToken,
+    authenticity_token: ReactOnRails.authenticityToken(),
     text
   };
 

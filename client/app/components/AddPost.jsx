@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react'
-import ReactOnRails from 'react-on-rails'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import DropzoneUpload from './DropzoneUpload'
@@ -32,22 +31,19 @@ export class AddPost extends React.Component {
     });
   }
 
-  handleFilesChange = (files) => {
-    this.setState({
-      files
-    })
-  }
+  handleFilesChange = (files) => this.setState({
+    files
+  })
 
   createPost = event => {
     event.preventDefault()
 
-    const csrfToken = ReactOnRails.authenticityToken()
     const data = {
       text: this.state.postText,
       files: this.state.files
     }
 
-    this.props.addPost(data, csrfToken)
+    this.props.addPost(data)
     this.setState({
       files: []
     })

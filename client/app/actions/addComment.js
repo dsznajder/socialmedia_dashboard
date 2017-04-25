@@ -1,14 +1,15 @@
 import {ADD_COMMENT} from './types.js'
 import $ from 'jquery'
+import ReactOnRails from 'react-on-rails';
 
 const addCommentAction = comment => ({
   type: ADD_COMMENT,
   payload: comment
 })
 
-export const addComment = ({ post_id, text, files }, csrfToken) => {
+export const addComment = ({ post_id, text, files }) => {
   const fields = {
-    authenticity_token: csrfToken,
+    authenticity_token: ReactOnRails.authenticityToken(),
     post_id,
     text
   };
