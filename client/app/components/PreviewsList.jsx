@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class PreviewsList extends Component {
   static propTypes = {
     files: PropTypes.array.isRequired,
-    removeFile: PropTypes.func.isRquired
+    removeFile: PropTypes.func.isRequired
   }
 
   render() {
