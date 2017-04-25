@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import {bindActionCreators} from 'redux';
-import ReactOnRails from 'react-on-rails'
 import {connect} from 'react-redux';
 import {addLike} from '../actions/addLike';
 import {removeLike} from '../actions/removeLike'
@@ -30,15 +29,13 @@ export class Like extends Component {
   }
 
   handleAddLike = () => {
-    const csrfToken = ReactOnRails.authenticityToken();
-    this.props.addLike(this.props.postId, this.props.commentId, csrfToken);
+    this.props.addLike(this.props.postId, this.props.commentId);
   }
 
   handleRemoveLike = () => {
-    const csrfToken = ReactOnRails.authenticityToken();
     const like = this.state.like;
 
-    this.props.removeLike(like.id, csrfToken);
+    this.props.removeLike(like.id);
   }
 
   render() {

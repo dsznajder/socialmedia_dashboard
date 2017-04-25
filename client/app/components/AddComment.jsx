@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react'
-import ReactOnRails from 'react-on-rails'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import DropzoneUpload from './DropzoneUpload'
@@ -30,25 +29,22 @@ export class AddComment extends React.Component {
 
   createComment = event => {
     event.preventDefault()
-    const csrfToken = ReactOnRails.authenticityToken()
     const data = {
       post_id: this.props.postId,
       text: this.state.commentText,
       files: this.state.files
     }
 
-    this.props.addComment(data, csrfToken)
+    this.props.addComment(data)
     this.setState({
       files: []
     })
     event.target.reset();
   }
 
-  handleFilesChange = files => {
-    this.setState({
-      files
-    })
-  }
+  handleFilesChange = files => this.setState({
+    files
+  })
 
   render() {
     return (
