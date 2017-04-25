@@ -42,10 +42,6 @@ export class AddComment extends React.Component {
     event.target.reset();
   }
 
-  handleFilesChange = files => this.setState({
-    files
-  })
-
   render() {
     return (
       <div className='col-md-3'>
@@ -62,7 +58,7 @@ export class AddComment extends React.Component {
           </div>
           <DropzoneUpload
             files={this.state.files}
-            filesChanged={this.handleFilesChange}
+            filesChanged={(files) => this.setState({ files })}
           />
           <input
             className='btn btn-info'

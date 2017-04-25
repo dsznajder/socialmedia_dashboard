@@ -64,7 +64,7 @@ export class AddPost extends React.Component {
           />
           <DropzoneUpload
             files={this.state.files}
-            filesChanged={this.handleFilesChange}
+            filesChanged={(files) => this.setState({ files })}
           />
           <input
             className='btn btn-primary'
